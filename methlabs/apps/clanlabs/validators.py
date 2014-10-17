@@ -17,6 +17,16 @@ def validate_report_date(report_date):
 
 
 """
-send_mail('Test django email', 'Test meth lab list from django app.', 'raman_prasad@harvard.edu',\
-    ['raman_prasad@harvard.edu'], fail_silently=False)
+from django.conf import settings
+print 'EMAIL_HOST', settings.EMAIL_HOST
+print 'EMAIL_HOST_USER', settings.EMAIL_HOST_USER
+print 'EMAIL_HOST_PASSWORD', settings.EMAIL_HOST_PASSWORD
+print 'EMAIL_PORT', settings.EMAIL_PORT
+print 'EMAIL_USE_TLS', settings.EMAIL_USE_TLS
+print 'DEFAULT_FROM_EMAIL', settings.DEFAULT_FROM_EMAIL
+print 'SERVER_EMAIL', settings.SERVER_EMAIL 
+
+from django.core.mail import send_mail
+send_mail('Test django email #4', 'Test meth lab list from django app.', 'raprasad@gmail.com',\
+    ['raman_prasad@harvard.edu', 'raprasad@gmail.com'], fail_silently=False)
 """

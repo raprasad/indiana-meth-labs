@@ -16,13 +16,13 @@ class SeizureLocationType(TimeStampedModel):
         
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        super(SeizureLocation, self).save(*args, **kwargs)
+        super(SeizureLocationType, self).save(*args, **kwargs)
         
     class Meta:
         ordering = ('sort_order', 'name', )
         
         
-MANUFACTURING_METHOD_NOT_SPECIFIED = 'Not Specified'
+MANUFACTURING_METHOD_NOT_SPECIFIED_SLUG = 'not-specified'
 class ManufacturingMethod(TimeStampedModel):
     
     name = models.CharField(max_length=100, unique=True)    
@@ -43,7 +43,7 @@ class ManufacturingMethod(TimeStampedModel):
         
 class ClandestineLabReport(TimeStampedModel):
     
-    case_number = models.CharField(max_length=255, unique=True)
+    case_number = models.CharField(max_length=255, db_index=True)
     
     report_date = models.DateField(validators=[validate_report_date])
         
@@ -54,10 +54,10 @@ class ClandestineLabReport(TimeStampedModel):
     lat_position = models.DecimalField (max_digits=8, decimal_places=3)
     
     manufacture_method = models.ForeignKey(ManufacturingMethod)
-    seizure_location_type = models.ManyToManyField(SeizureLocationType, blank=True, null=True)
+    seizure_location_types = models.ManyToManyField(SeizureLocationType, blank=True, null=True)
     
     # lab number
-    lab_number = models.CharField(max_length=255, blank=True)    
+    lab_number = models.CharField(max_length=255, db_index=True)    
     non_isp_lab = models.BooleanField('non-Indiana State Police', default=False, help_text='Contact local law enforcement for more information. (auto-filled on save)')
     
     # optional

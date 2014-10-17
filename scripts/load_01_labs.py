@@ -11,13 +11,14 @@ if __name__=='__main__':
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "methlabs.settings.local")
 
 from django.conf import settings
-from apps.clanlabs.forms_import import MethImportForm
+from apps.clanlabs_importer.forms_import import MethImportForm
 import csv
 
 def format_boolean(val):
     if val in ('true', 'false'):
         return eval(val.title())
     return val
+    
     
 def test_run(fname):
     assert isfile(fname) is True, "File not found: %s" % fname
@@ -29,14 +30,23 @@ def test_run(fname):
                 continue    # skip header row
             #row = [format_boolean(val) for val in row]
             meth_info_dict = dict(zip(field_names, row))
+            print ('-' * 60)
+            print ('------------------ INPUT ----------------------')
+            
             print(meth_info_dict)
             f = MethImportForm(meth_info_dict)
             if not f.is_valid():
                 print (f.errors)
                 break
-            
-            print (f.cleaned_data)
-            if row_cnt==2:
+            print ('------------------ CLEAN ----------------------')
+            for k,v in f.cleaned_data.items():
+                if not v: continue
+                print ('%s: %s' % (k,v))
+                #if k=='onepot':sys.exit(0)
+            #print (f.cleaned_data)
+            print ('f.get_final_manufacture_method_type: -%s-' % f.get_final_manufacture_method_type())
+            print ('f.get_final_seizure_location_type: %s' % f.get_final_seizure_location_type())
+            if row_cnt==5:
                 break
                 
 if __name__=='__main__':

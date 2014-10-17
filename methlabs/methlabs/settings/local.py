@@ -19,13 +19,32 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 ########## END DEBUG CONFIGURATION
 
+########## CONFIGURATION FROM JSON FILE
+
+json_secrets_fname = join( dirname(abspath(__file__)), "secret_settings_local.json")
+if not isfile(json_secrets_fname):
+    raise ValueError('JSON file in settings does not exist: %s' % json_secrets_fname)
+try:
+    JSON_SECRETS = json.loads(open(json_secrets_fname, 'r').read())
+except:
+    raise Exception("Failed to parse JSON file for settings: %s" % json_secrets_fname)
+
+########## END CONFIGURATION FROM JSON FILE
 
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-########## END EMAIL CONFIGURATION
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.fas.harvard.edu'
+EMAIL_HOST = JSON_SECRETS['EMAIL_SETTINGS']['EMAIL_HOST']
+
+EMAIL_HOST_PASSWORD = JSON_SECRETS['EMAIL_SETTINGS']['EMAIL_HOST_PASSWORD']
+
+EMAIL_HOST_USER = JSON_SECRETS['EMAIL_SETTINGS']['EMAIL_HOST_USER']
+
+EMAIL_PORT = JSON_SECRETS['EMAIL_SETTINGS']['EMAIL_PORT']
+
+EMAIL_USE_TLS = JSON_SECRETS['EMAIL_SETTINGS']['EMAIL_USE_TLS']
+
 
 ########## DATABASE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
