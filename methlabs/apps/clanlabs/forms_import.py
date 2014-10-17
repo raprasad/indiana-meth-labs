@@ -1,14 +1,87 @@
+from __future__ import print_function
 from django import forms
 
+from apps.clanlabs.models import SeizureLocationType, ManufacturingMethod, ClandestineLabReport
+
+class MethImportForm(forms.Form):
+    """Used to read CSV file with Meth Data"""
+    
+    report_date = forms.DateTimeField(input_formats=['%m/%d/%Y %H:%M:%S AM', '%m/%d/%Y %H:%M:%S PM'])
+    county = forms.CharField(max_length=100)
+    location = forms.CharField(label='address, lat, lng', max_length=255)
+
+    vin_number = forms.CharField(max_length=100, required=False)
+    pdf_report = forms.URLField(max_length=255, required=False)
+    clean_cert = forms.CharField(max_length=100, required=False)
+    
+    case_number = forms.CharField(max_length=70, required=False)
+    lab_number = forms.CharField(max_length=255, required=False)
+
+    # seizure location
+    residence = forms.BooleanField(required=False)
+    outbuilding = forms.BooleanField(required=False)
+    vehicle = forms.BooleanField(required=False)
+    hotel_motel = forms.BooleanField(required=False)
+    open_area = forms.BooleanField(required=False)
+    business = forms.BooleanField(required=False)
+    other = forms.BooleanField(required=False)
+
+    # manufacture types
+    red_p = forms.BooleanField(required=False)
+    nazi = forms.BooleanField(required=False)
+    onepot = forms.BooleanField(required=False)
+
+    def clean_report_date(self):
+        rd = self.cleaned_data.get('report_date', None)
+        if rd is None:
+            raise forms.ValidationError('county cannot be None')
+        
+        return rd.date()
+    
+    def format_manufacture_type(self, val):
+        if not val:
+            return None
+        try:
+            return ManufacturingMethod.objects.get(slug=val)
+        except ManufacturingMethod.DoesNotExist:
+            raise Exception('ManufacturingMethod not found: %s' % val) 
+            
+    def clean_onepot(self):
+        onepot = self.cleaned_data.get('onepot', False)
+        if onepot is True:
+            return self.format_manufacture_type('onepot')
+        return self.format_manufacture_type('not-specified')
+        
+    #    def clean_onepot(self):
+    #        onepot = self.cleaned_data.get('onepot', False)
+    #        if onepot is True:
+    #            return self.format_manufacture_type('onepot')
+    #        return None
 
 
+        
+    def clean_county(self):
+        county = self.cleaned_data.get('county', None)
+        if county is None:
+            raise forms.ValidationError('county cannot be None')
+        
+        idx = county.find('(')
+        if idx > -1:
+            county = county[:idx].strip()
+            
+        return county
 
-
-COLUMN_HEADERS = ('report_date', 'county', 'location', 'vin_number', 'pdf_report', 'clean_cert', 'case_number', 'lab_number', 'residence', 'outbuilding', 'vehicle', 'hotel_motel', 'open', 'business', 'other', 'red_p', 'nazi', 'onepot') 
-
-BOOLEAN_COLUMN_HEADERS = COLUMN_HEADERS[-10:]
-
-
+    def get_formatted_data(self):
+        pass
+        
+#
+"""
+with open('ISP_Meth_Lab_Locations_Table.csv', 'rb') as csvfile:
+     methreader = csv.reader(csvfile, delimiter=',', quotechar='"')
+     for row in methreader:
+         print ('-'*40)
+         print ('--'.join(row))
+"""
 '''
 from __future__ import print_function
 from os.path import join, dirname, abspath
@@ -55,7 +128,8 @@ for row_idx in range(0, xl_sheet.nrows):    # Iterate through rows
     print ('Row: %s' % row_idx)   # Print row number
     for col_idx in range(0, num_cols):  # Iterate through columns
         cell_obj = xl_sheet.cell(row_idx, col_idx)  # Get cell object by row, col
-        print ('Column: [%s] cell_obj: [%s]' % (col_idx, cell_obj))
-
+        print cell_obj.type
+        #print ('Column: [%s] cell_obj: [%s]' % (col_idx, cell_obj))
+    break
 
 '''
