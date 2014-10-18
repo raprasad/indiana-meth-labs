@@ -21,4 +21,4 @@ def run_csv_import(csv_fname, start_row=0, stop_row=100000):
     
 if __name__=='__main__':
     fname = join('meth_data', 'ISP_Meth_Lab_Locations_Table.csv')
-    run_csv_import(fname, start_row=8419, stop_row=8420)
+    run_csv_import(fname, start_row=8419, stop_row=98420)

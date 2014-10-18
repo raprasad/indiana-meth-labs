@@ -11,15 +11,14 @@ admin.autodiscover()
 urlpatterns = patterns('',
     #url(r'^$', TemplateView.as_view(template_name='base.html')),
 
-    url(r'^labs/', include('apps.clanlabs.urls')),
+    url(r'^reports/', include('apps.clanlabs.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^indiana-methlabs-admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
     url(r'^indiana-methlabs-admin/', include(admin.site.urls)),
 
-    #url(r'^', include('apps.basic_pages.urls')),
         
 )
 
