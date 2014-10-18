@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 
 from model_utils.models import TimeStampedModel
-from apps.counties.models import County
+from apps.counties.models import County, Town
 from apps.clanlabs.validators import validate_report_date
 
 class SeizureLocationType(TimeStampedModel):
@@ -22,7 +22,6 @@ class SeizureLocationType(TimeStampedModel):
         ordering = ('sort_order', 'name', )
         
         
-MANUFACTURING_METHOD_NOT_SPECIFIED_SLUG = 'not-specified'
 class ManufacturingMethod(TimeStampedModel):
     
     name = models.CharField(max_length=100, unique=True)    
@@ -40,38 +39,54 @@ class ManufacturingMethod(TimeStampedModel):
     class Meta:
         ordering = ('sort_order', 'name', )
         
-        
+
+CASE_NUMBER_NOT_AVAILABLE = 'Not Available'
+NON_INDIANA_STATE_POLICE = 'NON-ISP'
 class ClandestineLabReport(TimeStampedModel):
     
     case_number = models.CharField(max_length=255, db_index=True)
     
     report_date = models.DateField(validators=[validate_report_date])
         
-    county = models.ForeignKey(County)
+    town = models.ForeignKey(Town)
+    county = models.ForeignKey(County, null=True, blank=True)
+    
     address = models.CharField(max_length=255)
     
-    lng_position = models.DecimalField (max_digits=8, decimal_places=3)
-    lat_position = models.DecimalField (max_digits=8, decimal_places=3)
+    lng_position = models.DecimalField (max_digits=17, decimal_places=15, blank=True, null=True)
+    lat_position = models.DecimalField (max_digits=17, decimal_places=15, blank=True, null=True)
     
-    manufacture_method = models.ForeignKey(ManufacturingMethod)
+    manufacturing_methods = models.ManyToManyField(ManufacturingMethod, blank=True, null=True)
     seizure_location_types = models.ManyToManyField(SeizureLocationType, blank=True, null=True)
     
     # lab number
     lab_number = models.CharField(max_length=255, db_index=True)    
-    non_isp_lab = models.BooleanField('non-Indiana State Police', default=False, help_text='Contact local law enforcement for more information. (auto-filled on save)')
+    non_isp_lab = models.BooleanField('Local police', default=False, help_text='Not Indiana State Police.  Contact local law enforcement for more information.')
     
     # optional
     vin_number = models.CharField('Vehicle ID#', max_length=255, blank=True)
     pdf_report_link = models.URLField(blank=True)
     
     def __unicode__(self):
-           return '%s (%s)' % (self.name, self.id)
+        return '%s (%s)' % (self.lab_number, self.id)
+
+    def display_locations(self):
+        return '\n'.join(self.seizure_location_types.values_list('name', flat=True).all())
+    display_locations.allow_tags = True
 
     def save(self, *args, **kwargs):
-       self.slug = slugify(self.name)
-       super(ClandestineLabReport, self).save(*args, **kwargs)
 
-       class Meta:
-           ordering = ('name', )
+        self.slug = slugify('%s %s' % (self.address, self.town))
+
+        self.county = self.town.county
+
+        if self.lab_number == NON_INDIANA_STATE_POLICE:
+            self.non_isp_lab = True
+        else:
+            self.non_isp_lab = False
+        super(ClandestineLabReport, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ('-report_date', )
     
     

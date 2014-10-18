@@ -6,4 +6,4 @@ from apps.clanlabs.models import SeizureLocationType, ManufacturingMethod, Cland
 class ClandestineLabReportForm(ModelForm):
      class Meta:
          model = ClandestineLabReport
-         exclude = ('created', 'modified')
+         exclude = ('seizure_location_types', 'manufacturing_methods', 'created', 'modified' )

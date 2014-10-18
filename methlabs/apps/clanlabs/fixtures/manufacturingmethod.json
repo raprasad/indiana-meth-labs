@@ -34,17 +34,5 @@
         "slug": "red-p", 
         "name": "Red P"
     }
-},
-{
-    "pk": 4, 
-    "model": "clanlabs.manufacturingmethod", 
-    "fields": {
-        "description": "Not available from the data spreadsheet.", 
-        "created": "2014-10-17T00:37:47.417Z", 
-        "modified": "2014-10-17T00:52:24.485Z", 
-        "sort_order": 100, 
-        "slug": "not-specified", 
-        "name": "Not Specified"
-    }
 }
 ]

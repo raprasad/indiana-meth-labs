@@ -22,11 +22,14 @@ admin.site.register(ManufacturingMethod, ManufacturingMethodAdmin)
 
 class ClandestineLabReportAdmin(admin.ModelAdmin):
     save_on_top = True
-    list_display = ('case_number', 'report_date', 'county')
-    search_fields = ('case_number', 'address', 'manufacture_method__name' )
-    list_filter = ('county', 'manufacture_method', 'seizure_location_types' )
-    readonly_fields =  ('modified', 'created', 'non_isp_lab')
-    filter_horizontal = ('seizure_location_types',)
+    list_display = ('case_number','lab_number','report_date', 'non_isp_lab', 'display_locations', 'town', 'county', 'address')
+    search_fields = ('case_number', 'lab_number','address', 'manufacturing_methods__name' )
+    list_filter = ('non_isp_lab', 'manufacturing_methods', 'seizure_location_types', 'town', 'county' )
+    
+    readonly_fields =  ('modified', 'created', 'non_isp_lab', 'county', 'display_locations')
+    
+    filter_horizontal = ('manufacturing_methods', 'seizure_location_types',)
+    
     fieldsets = (
          ('Case / Date / Location', {
                   'fields': (('case_number', 'report_date',  )\
@@ -34,12 +37,13 @@ class ClandestineLabReportAdmin(admin.ModelAdmin):
                   )
           }),    
           ('Lab Info', {
-                   'fields': (('lab_number', 'non_isp_lab',  )\
-                   , 'manufacture_method'\
+                   'fields': ('lab_number'\
+                   , 'non_isp_lab'\
+                   , 'manufacturing_methods'\
                    )
            }),
            ('Location Info', {
-                    'fields': ( ('county', 'address')\
+                    'fields': ( ('town', 'county', 'address')\
                     , ('lat_position', 'lng_position',)\
                     , 'seizure_location_types'\
                     )
