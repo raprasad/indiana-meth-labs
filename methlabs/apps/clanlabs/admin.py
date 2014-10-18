@@ -22,7 +22,7 @@ admin.site.register(ManufacturingMethod, ManufacturingMethodAdmin)
 
 class ClandestineLabReportAdmin(admin.ModelAdmin):
     save_on_top = True
-    list_display = ('case_number','lab_number','report_date', 'non_isp_lab', 'display_locations', 'town', 'county', 'address')
+    list_display = ('case_number','lab_number','report_date', 'non_isp_lab', 'county', 'address')
     search_fields = ('case_number', 'lab_number','address', 'manufacturing_methods__name' )
     list_filter = ('non_isp_lab', 'manufacturing_methods', 'seizure_location_types', 'town', 'county' )
     
@@ -43,7 +43,8 @@ class ClandestineLabReportAdmin(admin.ModelAdmin):
                    )
            }),
            ('Location Info', {
-                    'fields': ( ('town', 'county', 'address')\
+                    'fields': ( 'county', 'town'\
+                    , 'address'\
                     , ('lat_position', 'lng_position',)\
                     , 'seizure_location_types'\
                     )

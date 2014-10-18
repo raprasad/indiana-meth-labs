@@ -212,7 +212,7 @@ class MethImportForm(forms.Form):
         
         fmt_dict['manufacture_method_type_ids'] = self.get_final_manufacture_method_type_ids()
         fmt_dict['seizure_location_type_ids'] = self.get_final_seizure_location_type_ids()
-        fmt_dict['address'] = fmt_dict['location'][0]
+        fmt_dict['address'] = ', '.join(fmt_dict['location'][:2])
         fmt_dict['town'] = self.get_town_object_id(fmt_dict['location'][1], fmt_dict['county']) 
         # e.g. Vincennes, In -> Town object 
         
