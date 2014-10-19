@@ -1,0 +1,12 @@
+
+<b>Greeting: {{ greeting }}<b/>
+    
+<p>There are {{ pets|size }} pet{{ pets|pluraralize }}</p>
+
+<ul>
+{% for pet in pets %}
+    <li> {{ pet }}</li>
+{% empty %}
+    <li> Sorry! No pets found</li>
+{% endfor %}
+</ul>
