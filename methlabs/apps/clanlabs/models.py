@@ -89,6 +89,6 @@ class ClandestineLabReport(TimeStampedModel):
         super(ClandestineLabReport, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ('-report_date', )
+        ordering = ('report_date', )
     
     

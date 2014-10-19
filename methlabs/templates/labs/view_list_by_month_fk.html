@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+{% if note %}
+    <div class="alert alert-info">
+        {{ note|safe }}
+    </div>
+{% endif %}
+
+<h3>{{ page_title }}</h3>
+
+<p><b>{{ report_count }}</b> report{{ report_count|pluralize }} listed.</p>
+
+<table class="table table-hover table-bordered table-striped table-condensed">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Report Date</td>
+            <th>Case Number</td>
+            <th>Lab Number</td>
+            <th>County</td>
+            <th>Address</td>
+        </tr>
+    </thead>
+    {% for r in reports %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ r.report_date|date:"M j" }}</td>
+            <td>{{ r.case_number }}</td>
+            <td>{{ r.lab_number }}</td>
+            <td>{{ r.county }}</td>
+            <td>{{ r.address }}</td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="5">No reports for this month</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

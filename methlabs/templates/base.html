@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{% if page_title %}{{ page_title }}{% else %}Indiana Meth Labs{% endif %}</title>
+    <title>{{ page_title }}</title>
 
     <!-- Bootstrap Core CSS -->
       <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
@@ -45,19 +45,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{% url 'view_homepage' %}">methlabs</a>
+                <a class="navbar-brand" href="#">Indiana Meth Lab Report</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+                    {% comment %}
                     <li>
-                        <a href="{#% url 'view_support_page' %#}"{% if support_page %} class="active"{% endif %}>Support</a>
+                        <a href="#"{% if support_page %} class="active"{% endif %}>Lab Listing</a>
                     </li>
                     <li>
-                        <a href="{#% url 'view_best_practices_page' %#}"{% if best_practices_page %} class="active"{% endif %}>Best Practices</a>
+                        <a href="#"{% if best_practices_page %} class="active"{% endif %}>Best Practices</a>
                     </li>
+                    {% endcomment %}
                     <li>
-                        <a href="#">Help</a>
+                        <a href="#">Submit Tip</a>
                     </li>
                 </ul>
             </div>

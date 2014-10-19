@@ -1,0 +1,21 @@
+
+<h1>{{ title }}</h1>
+
+<b>{{ reports.count }}</b> report{{ reports.count|pluralize }} Listed.
+
+<table>
+    {% for r in reports %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ r.report_date }}</td>
+            <td>{{ r.case_number }}</td>
+            <td>{{ r.lab_number }}</td>
+            <td>{{ r.address }}</td>
+            <td>{{ r.county }}</td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td>No reports for this month</td>
+        </tr>
+    {% endfor %}
+</table>

@@ -9,7 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
-    url(r'^reports/', include('apps.clanlabs.urls')),
+    url(r'^labs/', include('apps.clanlabs.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^indiana-methlabs-admin/doc/', include('django.contrib.admindocs.urls')),
