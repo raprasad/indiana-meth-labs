@@ -106,6 +106,7 @@ def view_list_by_month_m2m_inefficient(request, year, month):
         <br /> &nbsp; &nbsp;- Too many queries!!
 
     """
+    
     return render_to_response('labs/view_list_by_month_m2m.html'\
                             , d\
                             , context_instance=RequestContext(request))

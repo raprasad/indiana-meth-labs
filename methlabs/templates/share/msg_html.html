@@ -5,14 +5,14 @@
   <title>Indiana Methamphetamine Clandestine Lab Report</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<body style="margin: 0; padding: 0;">
+<body>
     <p>{{ s.from_name }} has sent you a <b>Indiana Methamphetamine Clandestine Lab</b> report for the month of <b>{{ s.report_month|date:"M j, Y" }}</b></p>
 
-    <p>Online report: <a href="{% url 'view_list_by_month_with_map' s.report_month.year s.report_month.month %}">{{ s.report_month|date:"M j, Y" }}</a></p>
+    <p>Online report: <a href="http://{{ host }}{% url 'view_list_by_month_with_map' s.report_month.year s.report_month.month %}">{{ s.report_month|date:"M j, Y" }}</a></p>
 
     (sent {% now "F jS, Y f:s a" %})
 
-    <p><img src="{{ STATIC_URL }}/images/meth_suppression.jpg" alt="meth" /></p>
+    <p><img src="http://{{ host }}{{ STATIC_URL }}images/meth_suppression.jpg" width="250" alt="meth" /></p>
     
 </body>
 </html>

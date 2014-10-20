@@ -11,6 +11,8 @@ urlpatterns = patterns('',
 
     url(r'^labs/', include('apps.clanlabs.urls')),
 
+    url(r'^share/', include('apps.share.urls')),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^indiana-methlabs-admin/doc/', include('django.contrib.admindocs.urls')),
 

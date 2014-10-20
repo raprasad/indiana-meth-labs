@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Share</h1>
+                
+                {% if EMAIL_SUCCESS %}
+                    {% include "share/success_message.html" %}
+                {% else %}
+                    {% include "share/share_form.html" %}
+                {% endif %}
+               
+               
+            </div>
+        </div>
+{% endblock %}

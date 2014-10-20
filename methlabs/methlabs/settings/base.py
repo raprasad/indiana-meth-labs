@@ -199,6 +199,7 @@ DJANGO_APPS = (
 LOCAL_APPS = (
     'apps.counties',
     'apps.clanlabs',
+    'apps.share',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

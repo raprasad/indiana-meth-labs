@@ -1,5 +1,6 @@
-<br /><b>{{ report_count }}</b> report{{ report_count|pluralize }} listed.
-
+<p><br /><b>{{ report_count }}</b> report{{ report_count|pluralize }} listed.
+<a href="{% url 'view_share_report' selected_month.year selected_month.month %}" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-envelope"></span> Share Report</a>
+</p>
 <table class="table table-hover table-bordered table-striped table-condensed">
     <thead>
         <tr>

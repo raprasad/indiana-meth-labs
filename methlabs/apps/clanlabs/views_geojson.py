@@ -66,11 +66,15 @@ def view_geojson_data_by_month(request, year, month):
 
 def view_homepage(request):
     
-    today = date.today()
+    latest_report = ClandestineLabReport.objects.filter(is_visible=True).last()
+    if latest_report is not None:
+        selected_month = latest_report.report_date
+    else:  
+        selected_month = date.today()
     
     homepage_url = reverse('view_list_by_month_with_map'\
-                , kwargs={ 'year':today.year\
-                          , 'month':today.month })
+                , kwargs={ 'year' : selected_month.year\
+                          , 'month' : selected_month.month })
 
     return HttpResponseRedirect(homepage_url)
     

@@ -29,4 +29,4 @@ class SharedReportRecord(TimeStampedModel):
          super(SharedReportRecord, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ('-created')
+        ordering = ('-created', )

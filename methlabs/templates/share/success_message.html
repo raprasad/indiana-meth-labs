@@ -1,0 +1,18 @@
+
+<div class="alert alert-success" role="alert">
+    Dear <b>{{ shared_info.from_email }}</b>,
+    
+    <p>The report has been sent to <b>{{ shared_info.to_email }}</b></p>
+    
+    <p>Return to the <a href="{% url 'view_homepage' %}">homepage</a>.</p>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Copy of Email</h3>
+  </div>
+  <div class="panel-body">
+    {{ shared_info.full_message|safe }}
+  </div>
+</div>
+    

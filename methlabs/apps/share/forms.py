@@ -9,7 +9,4 @@ class SharedReportRecordForm(forms.ModelForm):
         
         exclude = ['full_message', 'md5', 'created', 'modified']
 
-    def clean(self):
-        
-        personal_note
         
