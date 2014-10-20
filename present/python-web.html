@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Developing with Django</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+    /* font-family: 'Yanone Kaffeesatz'; */
+      h1, h2, h3 {
+        font-family: 'Helvetica';
+        font-weight: normal;
+        
+      }
+      h1, h2 { color:#214b84;}
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; font-size:100%;}
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+
+# Developing with Django: 
+### Get Your Admin for Nothing<br />and your SQL for Free
+<img src="imgs/01/django-logo-negative.png" alt="django" height="70"/>
+<img src="imgs/01/python.jpg" alt="python" height="70" style="border:1px solid #ccc;" />
+
+---
+
+## today
+
+* ### background
+* ### django example
+    - ### in: _tabular data_
+    - ### out: _database / website_
+    
+    <img src="imgs/02-background/meth-logo.png" alt="indiana" height="150"/>
+    
+    
+---
+
+## early python: programmers liked it
+
+<br />
+<center>
+    <table>
+        <tr>
+            <td><img src="imgs/05-xkcd/python-main.png" alt="xkcd-1.png" width="550" /></td>
+            <td><img src="imgs/05-xkcd/python-hello.png" alt="xkcd-2.png" width="200" /></td>
+        </tr>
+    </table>
+</center>
+source: [http://xkcd.com/353](http://xkcd.com/353)
+
+---
+
+## web frameworks
+
+<table>
+    <tr>
+        <td><b>Before 2004/05</b></td>
+        <td><b>2005+</b></td>
+    </tr>
+    <tr>
+        <td><img src="imgs/02-background/shovel.png" alt="shovel" width="350" /></td>
+        <td><img src="imgs/02-background/plow.png" alt="plow" width="350" /></td>
+    </tr>
+</table>
+
+
+---
+
+## python web frameworks
+
+<br />
+<center>
+<img src="imgs/01/django-logo-negative.png" alt="django" width="170" />
+<img src="imgs/01/flask-logo.png" alt="flask" width="170" />
+<br />
+<br /><br />
+<img src="imgs/01/pylons-small.png" alt="pylons" width="130" />
+<img src="imgs/01/tornado.png" alt="tornado" width="130" />
+<!--img src="imgs/01/twisted.jpg" alt="twisted" width="75" / -->
+<img src="imgs/01/webpy.gif" alt="webpy" width="100" />
+<br /><img src="imgs/01/cherrypy.png" alt="cherrpy" width="170" />
+<img src="imgs/01/zope.jpg" alt="zope" width="130" />
+<img src="imgs/01/turbo-gears.png" alt="turbo-gears" width="100" />
+</center>
+
+
+ 
+---
+
+## why pay attention?
+
+----
+_(heavy python users)_
+<div>
+    <img src="imgs/06-python-use/dropbox.png" alt="dropbox.png" width="150" />
+    <img src="imgs/06-python-use/facebook.jpg" alt="facebook.jpg" width="150" />
+    <img src="imgs/06-python-use/google.jpg" alt="google.jpg" width="130" />
+    <img src="imgs/06-python-use/figshare.jpg" alt="figshare.jpg" width="180" style="border:4px solid #ff0000;padding:10px;" />
+    <img src="imgs/06-python-use/reddit-logo.png" alt="reddit-logo.png" width="130" />
+    <img src="imgs/06-python-use/uber_logo.png" alt="uber_logo.png" width="130" />
+    <img src="imgs/06-python-use/yelp_logo.png" alt="yelp_logo.png" width="130" />
+    <img src="imgs/06-python-use/you_tube.png" alt="you_tube.png" width="130" />
+    <img src="imgs/06-python-use/eventbrite-logo.png" alt="eventbrite-logo.png" width="130" />
+    <img src="imgs/06-python-use/irobot.png" alt="irobot.png" width="130" />
+</div>
+
+----
+_(notable django users)_
+<center>
+    <img src="imgs/06-python-use/instagram.png" alt="instagram.png" width="175" />
+    <img src="imgs/06-python-use/pinterest.jpg" alt="pinterest.jpg" width="150" />
+
+    <img src="imgs/06-python-use/disqus_logo.png" alt="disqus_logo.png" width="150" />
+    <img src="imgs/06-python-use/edx_logo.png" alt="edx_logo.png" width="120" />
+</center>
+
+
+---
+
+## strong local interest: python
+
+
+<center>
+    <table>
+          <tr>
+              <td style="vertical-align:top;"><img src="imgs/07-local-interest/meetup-logo.png" alt="meetup" width="75" style="vertical-align:top;" /></td>
+              <td style="vertical-align:top;"><img src="imgs/07-local-interest/pymeetup1.png" alt="pymeetup1" width="275" /></td>
+              <td style="vertical-align:top;"><img src="imgs/07-local-interest/pymeetup2.png" alt="pymeetup2" width="450" /></td>
+          </tr>
+      </table>    
+    
+    
+     
+</center>
+
+---
+
+## strong local interest: django
+
+
+<center>
+    <table>
+          <tr>
+              <td style="vertical-align:top;"><img src="imgs/07-local-interest/meetup-logo.png" alt="meetup" width="75" style="vertical-align:top;" /></td>
+              <td style="vertical-align:top;"><img src="imgs/07-local-interest/django1.png" alt="django1" width="275" /></td>
+              <td style="vertical-align:top;"><img src="imgs/07-local-interest/django2.png" alt="django2" width="450" /></td>
+          </tr>
+      </table>
+---
+## quick note
+
+### - writing correct code is hard<sup>1</sup>
+### - reading and reasoning about code is hard<sup>1</sup>
+### - it's easier to look at less code<sup>2</sup>      
+
+<small><sup>1</sup> <a href="http://www.youtube.com/watch?v=yvjmAYmYOj0">Alex Gaynor SF Python Meetup, July 2014</a></small>
+<br /><small><sup>2</sup> 1 FTE depending on public transport 
+<table>
+    <tr>
+        <td>
+
+<br /><img src="imgs/08-quick-note/kim-dot-com.jpg" width="200" alt="kimdotcom" /></small>
+        </td>
+        <td style="padding-left:40px;">
+           
+            <br /><img src="imgs/08-quick-note/77-bus.png" width="200" alt="bus" /></small>
+        </td>
+    </tr>
+</table>
+
+
+---
+
+## python glimpse: list (1 of 2)
+
+```python
+>>> l = ['cat', 'dog', 7, 'bird', 108]  # define
+
+>>> for x in l: print (x)   # iterate
+... 
+cat
+dog
+7
+bird
+108
+
+
+>>> l.sort()    # sort
+>>> l
+[7, 108, 'bird', 'cat', 'dog']
+
+
+
+>>> len(x)  # size
+5
+
+```
+
+---
+
+## python glimpse: list (2 of 2)
+
+```python
+>>> l[0:2], l[-3:]   # slice 1st 2 items and last 3 items 
+[7, 108], ['bird', 'cat', 'dog']
+
+
+
+>>> filter(lambda x: type(x) is str, l) # remove non-strings
+['bird', 'cat', 'dog']
+
+
+
+>>> some_strings = [ '  got', 'whitepace   ', ' ?  ']
+>>> [ x.strip() for x in some_strings ]     # transform each item
+['got', 'whitepace', '?']
+
+
+>>> import string
+>>> '-'.join(string.ascii_uppercase)    # join
+'A-B-C-D-E-F-G-H-I-J-K-L-M-N-O-P-Q-R-S-T-U-V-W-X-Y-Z'
+
+
+```
+---
+
+## python glimpse: dictionary (1 of 2)
+
+```python
+>>> d = {}      # create a dict  { key : value}
+
+
+>>> d['greeting'] = 'hello'     # add an item
+>>> d['closed_tickets'] = 848     # add an item
+>>> d['pets'] = ['dog', 'cat', 'bird']  # and another
+
+>>> d   # unordered
+{'closed_tickets': 848, 'greeting': 'hello', 'pets': ['dog', 'cat', 'bird']}
+
+>>> d.get('greeting')
+'hello'
+
+>>> d.keys()    # show keys (unordered)
+['greeting', 'pets', 'closed_tickets']
+
+
+
+```
+
+---
+
+## python glimpse: dictionary (2 of 2)
+
+```python
+>>> d.has_key('donut')
+False
+
+>>> d.get('bad key', '--no match--')    # default if key not found
+'--no match--'
+
+>>> for key, val in d.items():  # iterate through
+...     print '%s -> %s' % (key, val)
+... 
+closed_tickets -> 848
+greeting -> hello
+pets -> ['dog', 'cat', 'bird']
+
+
+>>> d.get('bad key', '--no match--')    # default if key not found
+'--no match--'
+```
+
+---
+
+## django: spreadsheet to database
+
+<center>
+    <table>
+        <tr>
+            <td style="vertical-align:top;"><img src="imgs/10-models/meth_suppression.jpg" height="150" alt="meth_suppression" /></td>
+            <td><img src="imgs/10-models/spreadsheet.png" height="450" alt="spreadsheet.png" /></td>
+        </tr>
+    </table>
+</center>
+<!--
+<img src="imgs/10-models/bureaucratic.png" height="400" alt="database" />
+<br />source: <a href="http://www.janbanning.com/gallery/bureaucratics/">Bureaucratics by Jan Banning</a>
+-->
+
+---
+
+## potentially 5 tables
+
+
+<img src="imgs/10-models/01-relations.png" alt="db-diagram 01-relations.png" width="100%" />
+
+---
+
+## no problem 
+
+1. database
+
+2. web admin interface (add/edit/delete)
+
+3. serialization: JSON, XML
+
+4. ORM access:  command line or in files
+
+
+
+<img src="imgs/03-cadillac-man/rwilliams.png" height="300" alt="database" />
+
+
+---
+
+## django: file layout
+
+```unix
+methlabs\
+    settings\
+        base.py
+*       local.py        # apps, db type (postgres, sqlite, mysql, etc)
+
+apps\
+    counties\
+        __init__.py     
+        admin.py
+        models.py       # define tables
+        
+    clanlabs\
+        __init__.py     
+        admin.py
+*       models.py       # define tables
+
+    share\
+        __init__.py     
+        admin.py
+        models.py       # define tables
+
+
+```
+
+---
+## in the settings file
+
+#### database
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # mysql, postgres, etc
+        'NAME': normpath(join(TEST_SETUP_DIR, 'methlabs.db3')),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    },
+   
+}
+```
+
+#### apps
+
+```python
+LOCAL_APPS = (
+    'apps.counties',
+    'apps.clanlabs',
+    'apps.share',
+)
+```
+
+
+---
+
+## each table: define model
+
+
+```python
+# from file apps/clanlabs/models.py
+from django.db import models
+
+class ManufacturingMethod(models.Model):
+    
+    name = models.CharField(max_length=100, unique=True)    
+    
+    description = models.TextField(blank=True)
+    
+    sort_order = models.IntegerField(default=10)
+    
+    slug = models.SlugField(blank=True, help_text='auto-filled on save')
+    
+    
+    def __unicode__(self):
+        return self.name
+    
+    class Meta:
+        ordering = ('sort_order', 'name', )
+```
+
+<img src="imgs/10-models/manufacture.png" height="140" alt="manufacture" />
+
+
+---
+
+## django models: preview sql
+
+```unix
+> python manage.py sqlall clanlabs
+```
+
+
+```sql
+CREATE TABLE "clanlabs_manufacturingmethod" (
+
+*   "id" integer NOT NULL PRIMARY KEY,
+
+*   "name" varchar(100) NOT NULL UNIQUE,
+
+    "description" text NOT NULL,
+
+    "sort_order" integer NOT NULL,
+
+    "slug" varchar(50) NOT NULL
+)
+;
+CREATE INDEX "clanlabs_manufacturingmethod_f52cfca0"
+  ON "clanlabs_manufacturingmethod" ("slug");
+
+```
+
+<img src="imgs/10-models/manufacture.png" height="140" alt="manufacture" />
+
+
+---
+
+## django models: run sql
+
+```unix
+*> python manage.py syncdb
+```
+
+```unix
+Creating tables ...
+Creating table clanlabs_seizurelocationtype
+*Creating table clanlabs_manufacturingmethod
+Creating table clanlabs_clandestinelabreport_seizure_location_types
+Creating table clanlabs_clandestinelabreport_manufacturing_methods
+Creating table clanlabs_clandestinelabreport
+Installing custom SQL ...
+Installing indexes ...
+Installed 11 object(s) from 1 fixture(s)
+
+```
+
+<img src="imgs/10-models/manufacture.png" height="160" alt="manufacture" />
+
+
+---
+
+## handling FK and M2M
+
+
+```python
+# from file apps/clanlabs/models.py
+class ClandestineLabReport(models.Model):
+    
+    case_number = models.CharField(max_length=255, db_index=True)   
+    
+    report_date = models.DateField(validators=[validate_report_date])
+        
+*   town = models.ForeignKey(Town)
+    
+*   manufacturing_methods = models.ManyToManyField(ManufacturingMethod\
+*                            , blank=True, null=True)
+
+# (.. other fields hidden ..)
+
+```
+<img src="imgs/10-models/m2m_relation.png" height="280" alt="manufacture" />
+
+---
+
+## django models: preview sql FK 
+
+
+```unix
+> python manage.py sqlall clanlabs 
+```
+
+```sql
+CREATE TABLE "clanlabs_clandestinelabreport" (
+    "id" integer NOT NULL PRIMARY KEY,
+    "case_number" varchar(255) NOT NULL,
+    "report_date" date NOT NULL,
+*   "town_id" integer NOT NULL REFERENCES "counties_town" ("id"),
+/*  (.. other fields not shown ..) */
+);
+```
+
+```sql
+CREATE INDEX "clanlabs_clandestinelabreport_850831a2" 
+    ON "clanlabs_clandestinelabreport" ("town_id");
+```
+<img src="imgs/10-models/fk-relation.png" height="280" alt="manufacture" />
+
+---
+
+## django models: preview sql M2M
+
+
+```unix
+> python manage.py sqlall clanlabs 
+```
+
+
+```sql
+CREATE TABLE "clanlabs_clandestinelabreport_manufacturing_methods" (
+    "id" integer NOT NULL PRIMARY KEY,
+*   "clandestinelabreport_id" integer NOT NULL,
+*    "manufacturingmethod_id" integer NOT NULL REFERENCES "clanlabs_manufacturingmethod" ("id"),
+*    UNIQUE ("clandestinelabreport_id", "manufacturingmethod_id")
+)
+```
+
+```sql
+CREATE INDEX "clanlabs_clandestinelabreport_manufacturing_methods_4d8f49ca" ON "clanlabs_clandestinelabreport_manufacturing_methods" ("clandestinelabreport_id");
+CREATE INDEX "clanlabs_clandestinelabreport_manufacturing_methods_21911cdd" ON "clanlabs_clandestinelabreport_manufacturing_methods" ("manufacturingmethod_id");
+```
+
+<img src="imgs/10-models/m2m_relation_only.png" height="200" alt="manufacture" />
+
+---
+## django models: M2M table 
+
+### created on sync/migrate
+
+```
+>python manage.py syncdb
+```
+
+```unix
+Creating tables ...
+Creating table clanlabs_seizurelocationtype
+Creating table clanlabs_manufacturingmethod
+Creating table clanlabs_clandestinelabreport_seizure_location_types
+*Creating table clanlabs_clandestinelabreport_manufacturing_methods
+Creating table clanlabs_clandestinelabreport
+Installing custom SQL ...
+Installing indexes ...
+Installed 11 object(s) from 1 fixture(s)
+```
+
+---
+## checklist 
+
+1. <s>database</s>
+
+2. web admin interface (add/edit/delete)
+
+3. serialization: JSON, XML
+
+4. ORM access:  command line or in files
+----
+### development cost
+- 2 files with models
+
+---
+##  web admin interface (add/edit/delete)
+
+```unix
+apps\
+    counties\
+        __init__.py     
+        admin.py        # define admin
+        models.py       # define tables
+        
+    clanlabs\
+        __init__.py     
+*       admin.py        # define admin
+        models.py       # define tables
+
+    share\
+        __init__.py     
+        admin.py        # define admin
+        models.py       # define tables
+
+```
+---
+
+##  web admin interface (add/edit/delete)
+
+### one line of code
+
+```python
+# apps/clanlabs/admin.py
+from django.contrib import admin
+*from apps.clanlabs.models import SeizureLocationType
+
+*admin.site.register(SeizureLocationType, SeizureLocationTypeAdmin)
+```
+
+<a href="http://127.0.0.1:8000/indiana-methlabs-admin/clanlabs/seizurelocationtypeproxy/" target="_blank">simple admin page</a>
+
+---
+
+##  web admin interface (add/edit/delete)
+
+### few more lines of code
+
+
+```python
+# apps/clanlabs/admin.py
+from django.contrib import admin
+*from apps.clanlabs.models import SeizureLocationType
+
+class SeizureLocationTypeAdmin(admin.ModelAdmin):
+    save_on_top = True
+    list_display = ('name', 'sort_order', 'slug' )
+    search_fields = ('name',)
+    list_editable = ('sort_order',)
+    readonly_fields = ('modified', 'created' )
+*admin.site.register(SeizureLocationType, SeizureLocationTypeAdmin)
+
+```
+
+<a href="http://127.0.0.1:8000/indiana-methlabs-admin/clanlabs/seizurelocationtype/" target="_blank">admin page 2</a>
+
+<a href="http://127.0.0.1:8000/indiana-methlabs-admin/clanlabs/clandestinelabreport/">adminj page - more formatting</a>
+
+---
+
+## checklist 
+
+1. <s>database</s>
+
+2. <s>web admin interface (add/edit/delete)</s>
+    
+3. serialization: JSON, XML
+
+4. ORM access:  command line or in files
+----
+### development cost
+- 2 files with models 
+
+- 2 files with admins (minutes for minimum)
+
+---
+## serialization
+
+#### use your models
+
+```unix
+python manage.py shell
+```
+
+```python
+from apps.clanlabs.models import ClandestineLabReport
+from django.core import serializers
+
+queryset = ClandestineLabReport.objects.filter(report_date__year=2014)[0:5]
+
+data = serializers.serialize("json", queryset, indent=4)
+print(data)
+
+data = serializers.serialize("xml", queryset, indent=4)
+print(data)
+```
+---
+
+## serialization: dumpdata, loaddata
+
+#### from unix command line
+```python
+# to JSON
+python manage.py dumpdata --indent=4 clanlabs.manufacturingmethod 
+
+# to XML
+python manage.py dumpdata --indent=4 --format=xml clanlabs.manufacturingmethod 
+
+# pipe to file
+python manage.py dumpdata --indent=4 clanlabs.seizurelocationtype 
+        > apps/clanlabs/fixtures/locations.json
+
+# load from file
+python manage.py dumpdata --indent=4 clanlabs.seizurelocationtype 
+        > apps/clanlabs/fixtures/locations.json
+
+```
+
+---
+
+## checklist 
+
+1. <s>database</s>
+
+2. <s>web admin interface (add/edit/delete)</s>
+    
+3. <s>serialization: JSON, XML</s>
+
+4. ORM access:  command line or in files
+----
+### development cost
+- 2 files with models 
+
+- 2 files with admins (minutes for minimum)
+
+- Free!
+---
+
+## django models: define slug note 1
+
+```python
+>>> from django.utils.text import slugify
+
+>>> slugify("1737 Cambridge St")
+'1737-cambridge-st'
+
+>>> slugify(u"I Want A Nice Polite URL!#$@")
+'i-want-a-nice-polite-url'
+
+
+```
+
+---
+
+## django models: define slug note 2
+
+```python
+*from django.utils.text import slugify
+from django.db import models
+
+class ManufacturingMethod(models.Model):
+    
+    name = models.CharField(max_length=100, unique=True)    
+    description = models.TextField(blank=True)
+    sort_order = models.IntegerField(default=10)
+*   slug = models.SlugField(blank=True, help_text='auto-filled on save')
+    
+    def __unicode__(self):
+        return self.name
+        
+    def save(self, *args, **kwargs):
+*       self.slug = slugify(self.name)
+        super(ManufacturingMethod, self).save(*args, **kwargs)
+        
+    class Meta:
+        ordering = ('sort_order', 'name', )
+```
+
+???
+
+slugify. lowercase string
+  * in: 'This location'
+  * out: 'this-location'
+
+---
+## Computer-assisted Geographer
+
+[![vermeer](imgs/vermeer_the-geographer2.jpg)](http://en.wikipedia.org/wiki/The_Geographer)
+
+---
+class: center, middle
+
+## thank you
+
+
+    </textarea>
+    <script src="js/remark-latest.min.js" type="text/javascript"></script>
+    
+    <!--  script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript" -->
+    <script type="text/javascript">
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

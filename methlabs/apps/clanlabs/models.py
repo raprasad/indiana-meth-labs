@@ -21,7 +21,12 @@ class SeizureLocationType(TimeStampedModel):
     class Meta:
         ordering = ('sort_order', 'name', )
         
-        
+class SeizureLocationTypeProxy(SeizureLocationType):
+    class Meta:
+        verbose_name = 'Seizure location type (simple admin)'
+        verbose_name_plural = 'Seizure location types (simple admin)'
+        proxy = True
+
 class ManufacturingMethod(TimeStampedModel):
     
     name = models.CharField(max_length=100, unique=True)    
@@ -39,6 +44,7 @@ class ManufacturingMethod(TimeStampedModel):
     class Meta:
         ordering = ('sort_order', 'name', )
         
+
 
 CASE_NUMBER_NOT_AVAILABLE = 'Not Available'
 NON_INDIANA_STATE_POLICE = 'NON-ISP'

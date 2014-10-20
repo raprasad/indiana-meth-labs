@@ -4,6 +4,6 @@
 {% if report_count_unmappable > 0 %}
 <i>{{ report_count_unmappable }} report{{ report_count_unmappable|pluralize }} {{ report_count_unmappable|pluralize:"is,are" }} not geocoded.</i>
 {% endif %}
-&nbsp; <a href="{% url 'view_geojson_data_by_month' selected_month.year selected_month.month %}" target="_blank" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-download"></span> Download Geojson</a>
+&nbsp; <a href="{% url 'view_geojson_data_by_month' selected_month.year selected_month.month %}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-download"></span> Download Geojson</a>
 </p>
 <div id="map-canvas" style="width:700px;height:500px;"></div>

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.clanlabs.models import SeizureLocationType, ManufacturingMethod, ClandestineLabReport
+from apps.clanlabs.models import SeizureLocationType, ManufacturingMethod, SeizureLocationTypeProxy, ClandestineLabReport
 
 class SeizureLocationTypeAdmin(admin.ModelAdmin):
     save_on_top = True
@@ -10,6 +10,8 @@ class SeizureLocationTypeAdmin(admin.ModelAdmin):
     readonly_fields = ('modified', 'created' )
 admin.site.register(SeizureLocationType, SeizureLocationTypeAdmin)
 
+
+admin.site.register(SeizureLocationTypeProxy)
 
 class ManufacturingMethodAdmin(admin.ModelAdmin):
     save_on_top = True
