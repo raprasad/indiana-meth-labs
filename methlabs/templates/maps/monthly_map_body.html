@@ -1,0 +1,7 @@
+<br />
+
+<b>{{ report_count_mappable }}</b> report{{ report_count_unmappable|pluralize }} are mapped.
+{% if report_count_unmappable > 0 %}
+<i>{{ report_count_unmappable }} report{{ report_count_unmappable|pluralize }} {{ report_count_unmappable|pluralize:"is,are" }} not geocoded.</i>
+{% endif %}
+<div id="map-canvas" style="width:700px;height:500px;"></div>

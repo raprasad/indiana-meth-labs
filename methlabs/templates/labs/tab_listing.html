@@ -1,20 +1,4 @@
-{% extends "base.html" %}
-
-{% block main_content %}
-
-{% if note %}
-    <div class="alert alert-info">
-        {{ note|safe }}
-    </div>
-{% endif %}
-
-{% include "labs/header_menu_by_year.html" %}
-<br />{% include "labs/header_menu_by_month.html" %}
-
-<h3>{{ page_title }}</h3>
-
-
-<b>{{ report_count }}</b> report{{ report_count|pluralize }} listed.
+<br /><b>{{ report_count }}</b> report{{ report_count|pluralize }} listed.
 
 <table class="table table-hover table-bordered table-striped table-condensed">
     <thead>
@@ -56,4 +40,3 @@
         </tr>
     {% endfor %}
     </table>
-{% endblock %}

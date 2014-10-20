@@ -9,6 +9,8 @@ from django.db.models import Count
 
 from apps.clanlabs.models import SeizureLocationType, ManufacturingMethod, ClandestineLabReport
 
+from views_geojson import create_feature_collection
+
 
 def get_month_menu_info(year):
     # Retrieve month information for year, only include months with incidents    
@@ -50,12 +52,15 @@ def view_list_by_month_with_menu(request, year, month):
     
     d = {}
     selected_month = date(int(year), int(month), 1)
-    d['page_title'] = '%s Report Listing' % (selected_month.strftime('%B %Y'))
+    d['page_title'] = '%s Reports' % (selected_month.strftime('%B %Y'))
     d['report_count'] = reports.count()
+    d['report_count_mappable'] = reports.exclude(lat_position=None).count()
+    d['report_count_unmappable'] = d['report_count']- d['report_count_mappable']
     d['reports'] = reports
     d['month_menu'] = get_month_menu_info(year)
     d['year_menu'] = ClandestineLabReport.objects.dates('report_date', 'year')
     d['selected_month']  = selected_month
+    d['geojson_features'] = create_feature_collection(reports)
     
     return render_to_response('labs/view_list_by_month_with_menu.html'\
                             , d\

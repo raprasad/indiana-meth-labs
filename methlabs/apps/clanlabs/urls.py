@@ -21,3 +21,14 @@ urlpatterns += patterns('apps.clanlabs.views_with_menu',
     url(r'^list-with-menu/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', 'view_list_by_month_with_menu', name="view_list_by_month_with_menu"),
 
 )
+
+urlpatterns += patterns('apps.clanlabs.views_geojson',
+
+    url(r'^test2/$', 'view_map_test2', name="view_map_test2"),
+
+    url(r'^geojson-data/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', 'view_geojson_data_by_month', name="view_geojson_data_by_month"),
+
+)
+
+
+

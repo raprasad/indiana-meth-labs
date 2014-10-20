@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data Layer: Simple</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+var map;
+function initialize() {
+  // Create a simple map.
+  var infowindow = new google.maps.InfoWindow();
+  
+  map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 8,
+    center: {lat: 39.7683333, lng: -86.1580556}
+    //Latitude: 39.7683333     Longitude: -86.1580556
+  });
+
+  // Load a GeoJSON from the same server as our demo.
+  //map.data.loadGeoJson('https://storage.googleapis.com/maps-devrel/google.json');
+  map.data.loadGeoJson("http://127.0.0.1:8000/labs/geojson-data/2014/7/");
+  
+  // Set event listener for each feature.
+    map.data.addListener('click', function(event) {
+       infowindow.setContent(event.feature.getProperty('case_number')+"<br>"+event.feature.getProperty('report_date')+"<br>");
+       infowindow.setPosition(event.latLng);
+       infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+       infowindow.open(map);
+    });
+  
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+      <div >
+          <div id="map-canvas" style="width:400px;height:200px;"></div>
+      </div>
+  </body>
+</html>
