@@ -179,6 +179,10 @@ _(notable django users)_
     </tr>
 </table>
 
+---
+## another note
+
+
 
 ---
 
@@ -780,13 +784,13 @@ bad_locations.delete()
 - Total code: 166 lines
 
 ---
-## show it in the browser
+## Show it in the browser
 
 <img src="imgs/11-views/basic.png" alter="basic.png" width="700" />
 
 ---
 
-## show it in the browser: URL
+## Show it in the browser: URL
 
 
 ```python
@@ -807,7 +811,7 @@ urlpatterns = patterns('apps.clanlabs.views',
 [apps/clanlabs/urls.py](https://github.com/raprasad/indiana-meth-labs/blob/master/methlabs/apps/clanlabs/urls.py)
 ---
 
-## show it in the browser: View
+## Show it in the browser: View
 
 ```python
 # apps/clanlabs/views.py
@@ -833,7 +837,7 @@ def view_august_2014(request):
 [apps/clanlabs/views.py](https://github.com/raprasad/indiana-meth-labs/blob/master/methlabs/apps/clanlabs/views.py)
 ---
 
-## show it in the browser: Template
+## Show it in the browser: Template
 
 ```html
 <h1>{{ title }}</h1>
@@ -862,7 +866,7 @@ def view_august_2014(request):
 
 ---
 
-## show it in the browser: More Views
+## Show it in the browser: More Views
 
 #### The ORM loves me
 #### <a href="http://127.0.0.1:8000/labs/list-inefficient/2014/8/" target="_blank">The ORM loves me not</a>
@@ -870,7 +874,7 @@ def view_august_2014(request):
 
 ---
 
-## show it in the browser: Month Menu
+## Show it in the browser: Month Menu
 
 #### query
 
@@ -948,6 +952,45 @@ def view_share_report(request, year, month):
 [views](https://github.com/raprasad/indiana-meth-labs/blob/master/methlabs/apps/share/views.py#L50)
  | <a href="http://127.0.0.1:8000/share/send-email/2014/8/" target="_blank">share report</a>
 
+---
+## Share Form Template
+
+simple
+```html
+{{ share_form }}
+```
+
+more control
+```html
+{% for field in share_form.visible_fields %}
+    <tr>
+        <th class="text-primary">{{ field.label_tag }}</th>
+        <td>{{ field }}       
+            {% if field.errors %}     
+            <span class="text-danger">
+                 {% for error in field.errors %}
+                  <br />{{ field.label_tag }}: {{ error }}
+                {% endfor %}
+            </span>
+            {% endif %}                 
+         </td>
+    </tr>
+{% endfor %}
+```
+
+
+
+---
+## Send an HTML Email
+
+```python
+from django.core.mail import EmailMultiAlternatives
+
+
+msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
+msg.attach_alternative(html_content, "text/html")
+msg.send()
+```
 ---
 
 ## API: Tastypie Example
