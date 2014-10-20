@@ -20,7 +20,8 @@ def get_month_menu_info(year):
     #
     truncate_date = connection.ops.date_trunc_sql('month','report_date')
     month_menu_info = ClandestineLabReport.objects.filter(\
-                                report_date__year=year\
+                                is_visible=True
+                                , report_date__year=year\
                             ).extra({'report_month':truncate_date}\
                             ).values_list('report_month'\
                             ).annotate(\
@@ -58,7 +59,8 @@ def view_list_by_month_with_menu(request, year, month):
     d['report_count_unmappable'] = d['report_count']- d['report_count_mappable']
     d['reports'] = reports
     d['month_menu'] = get_month_menu_info(year)
-    d['year_menu'] = ClandestineLabReport.objects.dates('report_date', 'year')
+    d['year_menu'] = ClandestineLabReport.objects.filter(is_visible=True\
+                                        ).dates('report_date', 'year')
     d['selected_month']  = selected_month
     d['geojson_features'] = create_feature_collection(reports)
     
