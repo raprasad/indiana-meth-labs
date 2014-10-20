@@ -10,6 +10,8 @@ from geojson import Feature, Point, FeatureCollection
 
 from apps.clanlabs.models import SeizureLocationType, ManufacturingMethod, ClandestineLabReport
 
+from apps.clanlabs.views_with_menu import get_month_menu_info
+
 def view_map_test2(request):
     return render_to_response('maps/test2.html'\
                              , {}\
@@ -27,6 +29,7 @@ def geo_format(report):
                 , id=r.id\
                 , properties=dict(case_number=r.case_number\
                                 , report_date=r.report_date.strftime('%m/%d/%Y')\
+                                , address=r.address\
                                 )\
                 )
     return f
@@ -43,7 +46,8 @@ def create_feature_collection(reports):
     
     return json.dumps(feature_collection)
     
-    
+
+
 def view_geojson_data_by_month(request, year, month):
 
     # report query
@@ -55,11 +59,38 @@ def view_geojson_data_by_month(request, year, month):
                                         'seizure_location_types'\
                                         , 'manufacturing_methods'\
                                     )
-    
 
-    #feature_list = [ geo_format(r) for r in reports if r.lat_position and r.lng_position]
-    
-    #feature_collection = FeatureCollection(feature_list)  
-    
     return HttpResponse(create_feature_collection(reports), content_type="application/json")
- 
+
+
+
+def view_list_by_month_with_map(request, year, month):
+
+    # report query
+    reports = ClandestineLabReport.objects.select_related('county'\
+                                    ).filter(is_visible=True\
+                                        , report_date__year=year\
+                                        , report_date__month=month\
+                                    ).prefetch_related(\
+                                        'seizure_location_types'\
+                                        , 'manufacturing_methods'\
+                                    )
+
+
+
+    d = {}
+    selected_month = date(int(year), int(month), 1)
+    d['page_title'] = '%s Reports' % (selected_month.strftime('%B %Y'))
+    d['report_count'] = reports.count()
+    d['report_count_mappable'] = reports.exclude(lat_position=None).count()
+    d['report_count_unmappable'] = d['report_count']- d['report_count_mappable']
+    d['reports'] = reports
+    d['month_menu'] = get_month_menu_info(year)
+    d['year_menu'] = ClandestineLabReport.objects.filter(is_visible=True\
+                                        ).dates('report_date', 'year')
+    d['selected_month']  = selected_month
+
+    return render_to_response('maps/view_list_by_month_with_map.html'\
+                            , d\
+                            , context_instance=RequestContext(request))
+

@@ -46,9 +46,9 @@ class ClandestineLabReport(TimeStampedModel):
     
     case_number = models.CharField(max_length=255, db_index=True)
     
-    report_date = models.DateField(validators=[validate_report_date])
+    report_date = models.DateField(db_index=True, validators=[validate_report_date])
 
-    is_visible = models.BooleanField(default=True)
+    is_visible = models.BooleanField(default=True, db_index=True)
 
     town = models.ForeignKey(Town)
     county = models.ForeignKey(County, null=True, blank=True)

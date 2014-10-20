@@ -18,12 +18,13 @@ function initialize() {
   });
 
   // load geo json for the selected month
-  map.data.loadGeoJson("http://127.0.0.1:8000/labs/geojson-data/{{ selected_month|date:"Y/m" }}/" );
+  map.data.loadGeoJson("{% url 'view_geojson_data_by_month' selected_month.year selected_month.month %}" );
+  //map.data.loadGeoJson("http://127.0.0.1:8000/labs/geojson-data/{{ selected_month|date:"Y/m" }}/" );
   
   // Set event listener for each feature.
     map.data.addListener('click', function(event) {
         
-        infowindow.setContent(event.feature.getProperty('case_number') +"<br>" +event.feature.getProperty('report_date')+"<br>");
+        infowindow.setContent(event.feature.getProperty('address') +"<br>" +event.feature.getProperty('report_date')+"<br>");
         infowindow.setPosition(event.latLng);
         infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
         infowindow.open(map);

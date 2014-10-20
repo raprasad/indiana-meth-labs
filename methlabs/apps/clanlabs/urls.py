@@ -28,6 +28,8 @@ urlpatterns += patterns('apps.clanlabs.views_geojson',
 
     url(r'^geojson-data/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', 'view_geojson_data_by_month', name="view_geojson_data_by_month"),
 
+    url(r'^list-by-month-map/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', 'view_list_by_month_with_map', name="view_list_by_month_with_map"),
+
 )
 
 
