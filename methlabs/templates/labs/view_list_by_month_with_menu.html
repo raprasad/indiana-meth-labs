@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block extra_js %}
+<script>
+$(function () {
+    $('#pageTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+});
+
+</script>
+{% include "maps/monthly_map_header_js.html" %}
+
+{% endblock %}
+
+
+{% block main_content %}
+
+{% if note %}
+    <div class="alert alert-info">
+        {{ note|safe }}
+    </div>
+{% endif %}
+
+{% include "labs/header_menu_by_year.html" %}
+<br />{% include "labs/header_menu_by_month.html" %}
+
+<h3>{{ page_title }}</h3>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist" id="pageTabs">
+  <li class="active"><a href="#listing" role="tab" data-toggle="tab">Listing</a></li>
+  <li><a href="#map" role="tab" data-toggle="tab">Map</a></li>
+</ul>
+
+<div class="tab-content">
+     <div class="tab-pane active" id="listing">{% include "labs/tab_listing.html" %}</div>
+     <div class="tab-pane active" id="map">{% include "maps/monthly_map_body.html" %}</div>
+</div>
+
+
+{% endblock %}
