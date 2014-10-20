@@ -7,6 +7,9 @@ $(function () {
       e.preventDefault()
       $(this).tab('show')
     })
+    {% if share_form_active %}
+        $('#pageTabs a[href="#share"]').tab('show') // Select tab by name
+    {% endif %}
 });
 
 </script>

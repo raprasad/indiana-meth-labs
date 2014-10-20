@@ -1,9 +1,15 @@
 from django import forms
 
+from apps.share.models import SharedReportRecord
 
-class ContactForm(forms.Form):
-    
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField()
-    sender = forms.EmailField()
-    cc_myself = forms.BooleanField(required=False)
+class SharedReportRecordForm(forms.ModelForm):
+    class Meta:
+        model = SharedReportRecord
+        widgets = {'report_month': forms.HiddenInput() }
+        
+        exclude = ['full_message', 'md5', 'created', 'modified']
+
+    def clean(self):
+        
+        personal_note
+        

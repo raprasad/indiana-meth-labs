@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Indiana Methamphetamine Clandestine Lab Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body style="margin: 0; padding: 0;">
+    <p>{{ s.from_name }} has sent you a <b>Indiana Methamphetamine Clandestine Lab</b> report for the month of <b>{{ s.report_month|date:"M j, Y" }}</b></p>
+
+    <p>Online report: <a href="{% url 'view_list_by_month_with_map' s.report_month.year s.report_month.month %}">{{ s.report_month|date:"M j, Y" }}</a></p>
+
+    (sent {% now "F jS, Y f:s a" %})
+
+    <p><img src="{{ STATIC_URL }}/images/meth_suppression.jpg" alt="meth" /></p>
+    
+</body>
+</html>

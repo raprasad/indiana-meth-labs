@@ -1,0 +1,6 @@
+
+{{ s.from_name }} has sent you a Indiana Methamphetamine Clandestine Lab report for the month of {{ s.report_month|date:"M j, Y" }}
+
+Online report: <a href="{% url 'view_list_by_month_with_map' s.report_month.year s.report_month.month %}">{{ s.report_month|date:"M j, Y" }}
+
+(sent {% now "F jS, Y f:s a" %})

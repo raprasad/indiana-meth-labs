@@ -88,7 +88,6 @@ def view_list_by_month_with_map(request, year, month):
                                     )
 
 
-
     d = {}
     
     # create selected month
