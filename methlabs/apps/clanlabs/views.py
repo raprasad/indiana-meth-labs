@@ -28,6 +28,8 @@ def view_list_by_month_inefficient(request, year, month):
 
     d = {}
     selected_month = date(int(year), int(month), 1)
+    d['selected_month']  = selected_month
+    
     d['page_title'] = '%s Report Listing' % (selected_month.strftime('%B %Y'))
     d['report_count'] = reports.count()
     d['reports'] = reports
@@ -57,17 +59,19 @@ def view_list_by_month(request, year, month):
 
     d = {}
     selected_month = date(int(year), int(month), 1)
+    d['selected_month']  = selected_month
+    
     d['page_title'] = '%s Report Listing' % (selected_month.strftime('%B %Y'))
     d['report_count'] = reports.count()
     d['reports'] = reports
     d['note'] = """<code>select_related('county')</code> solves the extra query problem:
         <br /><br />
 <pre>
-ClandestineLabReport.objects.<b>select_related('county')</b>.filter(is_visible=True\
-    
-                    , report_date__year=year\
-    
-                    , report_date__month=month)
+<s>ClandestineLabReport.objects.filter(is_visible=True)</s>
+ClandestineLabReport.objects.<b>select_related('county')</b>.filter(
+                        is_visible=True    
+                        , report_date__year=year
+                        , report_date__month=month)
 </pre>
     """
     
@@ -91,6 +95,9 @@ def view_list_by_month_m2m_inefficient(request, year, month):
 
     d = {}
     selected_month = date(int(year), int(month), 1)
+    
+    d['selected_month']  = selected_month
+    
     d['page_title'] = '%s Report Listing' % (selected_month.strftime('%B %Y'))
     d['report_count'] = reports.count()
     d['reports'] = reports
@@ -120,6 +127,8 @@ def view_list_by_month_m2m(request, year, month):
 
     d = {}
     selected_month = date(int(year), int(month), 1)
+    
+    d['selected_month']  = selected_month
     d['page_title'] = '%s Report Listing' % (selected_month.strftime('%B %Y'))
     d['report_count'] = reports.count()
     d['reports'] = reports

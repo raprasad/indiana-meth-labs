@@ -1,7 +1,8 @@
+                          
 <ul class="pagination pagination" style="padding:0;margin:0">
 {% for mm in month_menu %}
-    <li{% if mm.0 == selected_month %} class="active"{% endif %}>
-        <a href="{% url 'view_list_by_month_with_menu' mm.0.year mm.0.month %}">{{ mm.0|date:"M"}}</a>
+    <li{% if mm == selected_month %} class="active"{% endif %}>
+        <a href="{% url 'view_list_by_month_with_menu' mm.year mm.month %}">{{ mm|date:"M"}}</a>
     </li>
 {% empty %}
     <li>No data available</li>

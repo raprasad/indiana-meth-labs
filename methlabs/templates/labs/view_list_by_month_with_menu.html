@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+
+{% block main_content %}
+
+{% if note %}
+    <div class="alert alert-info">
+        {{ note|safe }}
+    </div>
+{% endif %}
+
+{% include "labs/header_menu_by_year.html" %}
+<br />{% include "labs/header_menu_by_month.html" %}
+
+<h3>{{ page_title }}</h3>
+
+{% include "labs/tab_listing.html" %}
+
+
+{% endblock %}

@@ -17,7 +17,9 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^indiana-methlabs-admin/', include(admin.site.urls)),
 
-        
+    url(r'^/?$', 'apps.clanlabs.views_geojson.view_homepage', name='view_homepage'),
+
+    
 )
 
 from tastypie.api import Api

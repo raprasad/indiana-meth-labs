@@ -45,11 +45,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Indiana Meth Lab Report</a>
+                <a class="navbar-brand" href="{% url 'view_homepage' %}">Indiana Meth Labs</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ORM Queries<span class="caret"></span></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="{% url 'view_august_2014' %}" target="_blank">1 - By Month (August 2014)</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'view_list_by_month_inefficient' selected_month.year selected_month.month %}">2 - Foreign Key Issues</a></li>
+                            <li><a href="{% url 'view_list_by_month' selected_month.year selected_month.month %}">3 - Foreign Key Fixed</a></li>
+                            <li class="divider"></li>    
+                            <li><a href="{% url 'view_list_by_month_m2m_inefficient' selected_month.year selected_month.month %}">4 - Many To Many Issues</a></li>
+                           <li><a href="{% url 'view_list_by_month_m2m' selected_month.year selected_month.month %}">5 - Many To Many Fixed</a></li>
+                           <li class="divider"></li>    
+                           <li><a href="{% url 'view_list_by_month_with_menu' selected_month.year selected_month.month %}">6 - Year/Month Menu </a></li>
+                          </ul>
+                    </li>
+                    <li>
+                        <li><a href="{% url 'view_list_by_month_with_map' selected_month.year selected_month.month %}">List/Map</a></li>
+                        
+                    </li>
                     {% comment %}
                     <li>
                         <a href="#"{% if support_page %} class="active"{% endif %}>Lab Listing</a>

@@ -1,6 +1,7 @@
 from datetime import date, datetime
 import json
 
+from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template import RequestContext
@@ -63,9 +64,19 @@ def view_geojson_data_by_month(request, year, month):
     return HttpResponse(create_feature_collection(reports), content_type="application/json")
 
 
+def view_homepage(request):
+    
+    today = date.today()
+    
+    homepage_url = reverse('view_list_by_month_with_map'\
+                , kwargs={ 'year':today.year\
+                          , 'month':today.month })
 
+    return HttpResponseRedirect(homepage_url)
+    
+    
 def view_list_by_month_with_map(request, year, month):
-
+    
     # report query
     reports = ClandestineLabReport.objects.select_related('county'\
                                     ).filter(is_visible=True\
@@ -79,17 +90,31 @@ def view_list_by_month_with_map(request, year, month):
 
 
     d = {}
+    
+    # create selected month
     selected_month = date(int(year), int(month), 1)
+    
+    
     d['page_title'] = '%s Reports' % (selected_month.strftime('%B %Y'))
+
+    # report counts, mappable count, unmappable count
     d['report_count'] = reports.count()
     d['report_count_mappable'] = reports.exclude(lat_position=None).count()
     d['report_count_unmappable'] = d['report_count']- d['report_count_mappable']
+
+    # reports
     d['reports'] = reports
-    d['month_menu'] = get_month_menu_info(year)
+
+    # top menus
+    #d['month_menu'] = get_month_menu_info(year)
+    d['month_menu'] =  ClandestineLabReport.objects.filter(is_visible=True\
+                                            , report_date__year=year\
+                                        ).dates('report_date', 'month')
+    
     d['year_menu'] = ClandestineLabReport.objects.filter(is_visible=True\
                                         ).dates('report_date', 'year')
     d['selected_month']  = selected_month
-
+    
     return render_to_response('maps/view_list_by_month_with_map.html'\
                             , d\
                             , context_instance=RequestContext(request))

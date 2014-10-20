@@ -49,16 +49,21 @@ def view_list_by_month_with_menu(request, year, month):
                                     )
     
     
-    
-    d = {}
     selected_month = date(int(year), int(month), 1)
+
+    d = {}
+    d['selected_month']  = selected_month
     d['page_title'] = '%s Reports' % (selected_month.strftime('%B %Y'))
+    
     d['report_count'] = reports.count()
     d['reports'] = reports
-    d['month_menu'] = get_month_menu_info(year)
+    
+    d['month_menu'] =  ClandestineLabReport.objects.filter(is_visible=True\
+                                            , report_date__year=year\
+                                        ).dates('report_date', 'month')
+    
     d['year_menu'] = ClandestineLabReport.objects.filter(is_visible=True\
                                         ).dates('report_date', 'year')
-    d['selected_month']  = selected_month
     
     return render_to_response('labs/view_list_by_month_with_menu.html'\
                             , d\
