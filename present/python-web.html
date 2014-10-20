@@ -792,6 +792,28 @@ bad_locations.delete()
 
 ## Show it in the browser: URL
 
+1 url 
+```python
+# urls.py
+   
+    url(r'^list/august-2014/$', 'view_august_2014', name="view_august_2014"),
+    
+    #       --actual url--       --function --       --url name (arbitrary)--
+    
+```
+
+<br />
+map to 1 view
+```python
+# views.py
+
+    def view_august_2014(request):
+        # return something
+```
+---
+
+## Show it in the browser: URL
+
 
 ```python
 urlpatterns = patterns('apps.clanlabs.views',
@@ -863,6 +885,27 @@ def view_august_2014(request):
 
 [templates/labs/view_august_2014.html](https://github.com/raprasad/indiana-meth-labs/blob/master/methlabs/templates/labs/view_august_2014.html) |
 <a href="http://127.0.0.1:8000/labs/list/august-2014/" target="_blank">see page</a>
+
+---
+
+## URL Parameters
+
+two urls
+```python
+    url(r'^list/august-2014/$', 'view_august_2014', name="view_august_2014"),
+
+    url(r'^list/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$'
+            , 'view_list_by_month', name="view_list_by_month"),
+```
+
+map to two views
+```python
+    def view_august_2014(request):
+        # do something
+    
+    def view_list_by_month(request, year, month):
+        # do something
+```
 
 ---
 
@@ -978,7 +1021,49 @@ more control
 {% endfor %}
 ```
 
+---
 
+## Form: Validation is its own Talk
+
+example of cross field validation
+
+```python
+class SharedReportRecordForm(forms.ModelForm):
+
+    class Meta:
+        model = SharedReportRecord
+
+    def clean(self):
+
+        from_email = self.cleaned_data.get('from_email')
+        to_email = self.cleaned_data.get('to_email')
+
+        if from_email and to_email:
+            if from_email == to_email:
+                msg = 'Why are you sending email to yourself'
+                self._errors["to_email"] = self.error_class([msg])
+
+                self._errors["from_email"] = self.error_class([msg2])
+                msg2 = 'To and From email cannot be the same'
+
+        return self.cleaned_data
+```
+
+--- 
+
+## Form validation: another peak
+
+
+```python
+    if request.POST:
+*       f = SharedReportRecordForm(request.POST)
+*       if f.is_valid():
+            print(f)
+```
+
+```javascript
+{'to_email': u'raman_prasad@harvard.edu', 'from_name': u'raman', 'report_month': datetime.date(2014, 8, 1), 'from_email': u'raprasad@gmail.com'}
+```
 
 ---
 ## Send an HTML Email

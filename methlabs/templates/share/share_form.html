@@ -2,6 +2,7 @@
 
 {% if ERROR_FOUND %}
     <div class="alert alert-danger" role="alert">Please check the errors below</div>
+    {#{ share_form.errors }#}
 {% endif %}
 
 <form action="{% url 'view_share_report' selected_month.year selected_month.month %}" enctype="multipart/form-data" method="post">

@@ -58,6 +58,7 @@ def view_share_report(request, year, month):
     if request.POST:
         f = SharedReportRecordForm(request.POST)
         if f.is_valid():
+            print (f.cleaned_data)
             shared_report_record = f.save()
             email_report(request, shared_report_record)
             success_url = reverse('view_share_report_success'\
@@ -71,7 +72,7 @@ def view_share_report(request, year, month):
         f = SharedReportRecordForm(initial={ 'report_month' : selected_month })
     
     d['share_form'] = f
-    
+    print (d)
     return render_to_response('share/share.html'\
                             , d\
                             , context_instance=RequestContext(request))
