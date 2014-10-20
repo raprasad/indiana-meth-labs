@@ -287,7 +287,7 @@ pets -> ['dog', 'cat', 'bird']
     <table>
         <tr>
             <td style="vertical-align:top;"><img src="imgs/10-models/meth_suppression.jpg" height="150" alt="meth_suppression" /></td>
-            <td><img src="imgs/10-models/spreadsheet.png" height="450" alt="spreadsheet.png" /></td>
+            <td><a href="/Users/rmp553/Documents/iqss-git/indiana-meth-labs/scripts/meth_data/ISP_Meth_Lab_Locations_Table.xls"><img src="imgs/10-models/spreadsheet.png" height="450" alt="spreadsheet.png" /></a></td>
         </tr>
     </table>
 </center>
@@ -406,7 +406,8 @@ class ManufacturingMethod(models.Model):
         ordering = ('sort_order', 'name', )
 ```
 
-<img src="imgs/10-models/manufacture.png" height="140" alt="manufacture" />
+<a href="imgs/10-models/manufacture.png"><img src="imgs/10-models/manufacture.png" height="140" alt="manufacture" /></a>
+
 
 
 ---
@@ -437,8 +438,7 @@ CREATE INDEX "clanlabs_manufacturingmethod_f52cfca0"
 
 ```
 
-<img src="imgs/10-models/manufacture.png" height="140" alt="manufacture" />
-
+<a href="imgs/10-models/manufacture.png"><img src="imgs/10-models/manufacture.png" height="140" alt="manufacture" /></a>
 
 ---
 
@@ -461,7 +461,7 @@ Installed 11 object(s) from 1 fixture(s)
 
 ```
 
-<img src="imgs/10-models/manufacture.png" height="160" alt="manufacture" />
+<a href="imgs/10-models/manufacture.png"><img src="imgs/10-models/manufacture.png" height="160" alt="manufacture" /></a>
 
 
 ---
@@ -510,7 +510,7 @@ CREATE TABLE "clanlabs_clandestinelabreport" (
 CREATE INDEX "clanlabs_clandestinelabreport_850831a2" 
     ON "clanlabs_clandestinelabreport" ("town_id");
 ```
-<img src="imgs/10-models/fk-relation.png" height="280" alt="manufacture" />
+<a href="imgs/10-models/fk-relation.png"><img src="imgs/10-models/fk-relation.png" height="280" alt="fk-relation" /></a>
 
 ---
 
@@ -536,7 +536,7 @@ CREATE INDEX "clanlabs_clandestinelabreport_manufacturing_methods_4d8f49ca" ON "
 CREATE INDEX "clanlabs_clandestinelabreport_manufacturing_methods_21911cdd" ON "clanlabs_clandestinelabreport_manufacturing_methods" ("manufacturingmethod_id");
 ```
 
-<img src="imgs/10-models/m2m_relation_only.png" height="200" alt="manufacture" />
+<a href="imgs/10-models/m2m_relation_only.png"><img src="imgs/10-models/m2m_relation_only.png" height="200" alt="manufacture" /></a>
 
 ---
 ## django models: M2M table 
@@ -572,6 +572,10 @@ Installed 11 object(s) from 1 fixture(s)
 ----
 ### development cost
 - 2 files with models
+    - [clanlabs models.py - 67 sloc](https://github.com/raprasad/indiana-meth-labs/blob/master/methlabs/apps/clanlabs/models.py)
+    - [counties models.py - 33 sloc](https://github.com/raprasad/indiana-meth-labs/blob/master/methlabs/apps/counties/models.py)
+
+- Total code: 100 lines
 
 ---
 ##  web admin interface (add/edit/delete)
@@ -634,7 +638,7 @@ class SeizureLocationTypeAdmin(admin.ModelAdmin):
 
 <a href="http://127.0.0.1:8000/indiana-methlabs-admin/clanlabs/seizurelocationtype/" target="_blank">admin page 2</a>
 
-<a href="http://127.0.0.1:8000/indiana-methlabs-admin/clanlabs/clandestinelabreport/">adminj page - more formatting</a>
+<a href="http://127.0.0.1:8000/indiana-methlabs-admin/clanlabs/clandestinelabreport/">admin page - more formatting</a>
 
 ---
 
@@ -650,9 +654,12 @@ class SeizureLocationTypeAdmin(admin.ModelAdmin):
 ----
 ### development cost
 - 2 files with models 
-
+    - 100 sloc (simple )
 - 2 files with admins (minutes for minimum)
+    - [clanlabs models.py 51 -- but could do 5 sloc](https://github.com/raprasad/indiana-meth-labs/blob/master/methlabs/apps/clanlabs/admin.py)
+    - [counties models.py - 15 sloc](https://github.com/raprasad/indiana-meth-labs/blob/master/methlabs/apps/counties/admin.py)
 
+- Total code: 166 lines
 ---
 ## serialization
 
@@ -714,7 +721,64 @@ python manage.py dumpdata --indent=4 clanlabs.seizurelocationtype
 - 2 files with admins (minutes for minimum)
 
 - Free!
+
+- Total code: 166 lines
+
 ---
+
+## ORM access
+
+```unix
+python manage.py shell
+```
+
+```python
+from apps.clanlabs.models import SeizureLocationType, ManufacturingMethod, ClandestineLabReport
+
+l = SeizureLocationType.objects.all()
+for s in l:
+   print s.id, s.name
+
+l.count()
+
+for x in range(1,100):
+    s = SeizureLocationType(name=u'loc: %d' % x)
+    s.save()
+
+# check admin
+
+bad_locations = SeizureLocationType.objects.filter(name__startswith=u'loc')
+bad_locations.delete()
+```
+
+[admin](http://127.0.0.1:8000/indiana-methlabs-admin/clanlabs/seizurelocationtype/)
+
+---
+
+## checklist 
+
+1. <s>database</s>
+
+2. <s>web admin interface (add/edit/delete)</s>
+    
+3. <s>serialization: JSON, XML</s>
+
+4. <s>ORM access:  command line or in files</s>
+
+----
+### development cost
+- 2 files with models 
+    
+- 2 files with admins (minutes for minimum)
+
+- Free!
+
+- Free!
+
+- Total code: 166 lines
+
+---
+
 
 ## django models: define slug note 1
 

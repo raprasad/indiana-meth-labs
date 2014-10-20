@@ -21,11 +21,6 @@ class SeizureLocationType(TimeStampedModel):
     class Meta:
         ordering = ('sort_order', 'name', )
         
-class SeizureLocationTypeProxy(SeizureLocationType):
-    class Meta:
-        verbose_name = 'Seizure location type (simple admin)'
-        verbose_name_plural = 'Seizure location types (simple admin)'
-        proxy = True
 
 class ManufacturingMethod(TimeStampedModel):
     
@@ -97,4 +92,12 @@ class ClandestineLabReport(TimeStampedModel):
     class Meta:
         ordering = ('report_date', )
     
+
+# For presentation, to show 1 line admin
+#
+class SeizureLocationTypeProxy(SeizureLocationType):
+    class Meta:
+        verbose_name = 'Seizure location type (simple admin)'
+        verbose_name_plural = 'Seizure location types (simple admin)'
+        proxy = True
     
