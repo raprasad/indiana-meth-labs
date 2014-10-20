@@ -30,6 +30,8 @@ class: center, middle
 <img src="imgs/01/django-logo-negative.png" alt="django" height="70"/>
 <img src="imgs/01/python.jpg" alt="python" height="70" style="border:1px solid #ccc;" />
 
+<small>October 2014</small>
+
 ---
 
 ## today
@@ -921,7 +923,6 @@ class SharedReportRecordForm(forms.ModelForm):
 
 ## Share: Display the Form
 
-#### [views](https://github.com/raprasad/indiana-meth-labs/blob/master/methlabs/apps/share/views.py#L50)
 ```python
 def view_share_report(request, year, month):
     d = {}
@@ -944,6 +945,79 @@ def view_share_report(request, year, month):
 *   d['share_form'] = f
     return render_to_response('share/share.html', d)
 ```
+[views](https://github.com/raprasad/indiana-meth-labs/blob/master/methlabs/apps/share/views.py#L50)
+ | <a href="http://127.0.0.1:8000/share/send-email/2014/8/" target="_blank">share report</a>
+
+---
+
+## API: Tastypie Example
+
+```html
+/api/v1/seizure-location-type/...```
+
+```python
+#apps/clanlabs/api.py
+*class SeizureLocationTypeResource(ModelResource):
+    class Meta:
+        queryset = SeizureLocationType.objects.all()
+        resource_name = 'seizure-location-type'
+        excludes = [ 'created', 'modified']
+```
+
+```python
+#urls.py
+from tastypie.api import Api
+*from apps.clanlabs.api import SeizureLocationTypeResource, ClanLabReportResource
+
+v1_api = Api(api_name='v1')
+v1_api.register(SeizureLocationTypeResource())
+v1_api.register(ClanLabReportResource())
+
+urlpatterns += patterns('',
+    (r'^api/', include(v1_api.urls)),   
+)```
+
+<a href="http://127.0.0.1:8000/" target="_blank">api example</a>
+
+---
+
+## covered today
+
+### models
+- defining tables | serialization | ORM | API
+
+### admin
+- defining | web interface
+
+### urls / views / templates
+- ORM gotcha: ForeignKey, ManyToMany
+- simple form
+
+### <span style="color:#006699;"><i>you can get a lot from models</i></span>
+---
+
+## out of time
+
+### reference
+- [excellent documentation](https://docs.djangoproject.com) | [many books](http://www.amazon.com/s/ref=sr_kk_1?rh=i%3Astripbooks%2Ck%3Adjango+python&keywords=django+python)
+
+### much, much more built-in
+- [db migrations](https://docs.djangoproject.com/en/1.7/topics/migrations/)
+| [testing](https://docs.djangoproject.com/en/1.6/topics/testing/overview/)
+| [internationalization](https://docs.djangoproject.com/en/1.7/topics/i18n/)
+- [caching](https://docs.djangoproject.com/en/1.6/topics/cache/)
+| [geo django](https://docs.djangoproject.com/en/1.6/ref/contrib/gis/)
+- etc, etc
+
+### popular packages for django
+- [haystack: solr, elastic search, whoosh, xapian](http://haystacksearch.org/)
+- [nosql, mongo ORM](https://django-mongodb-engine.readthedocs.org/en/latest/index.html)
+- [celery task queue: redis, RabbitMQ, etc](http://www.celeryproject.org/)
+---
+class: center, middle
+
+## thank you
+
 
 ---
 
@@ -994,16 +1068,6 @@ class ManufacturingMethod(models.Model):
 slugify. lowercase string
   * in: 'This location'
   * out: 'this-location'
-
----
-## Computer-assisted Geographer
-
-[![vermeer](imgs/vermeer_the-geographer2.jpg)](http://en.wikipedia.org/wiki/The_Geographer)
-
----
-class: center, middle
-
-## thank you
 
 
     </textarea>
